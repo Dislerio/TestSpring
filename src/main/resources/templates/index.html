@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+<img src="logo.JPG", alt="Картинка">
+<br>
+<form th:action="@{/app_title}" th:object="${phrase}" th:method="post">
+    <div>
+        <label for="phText">Текст фразы:&nbsp;</label>
+        <input type="text" id="phText" th:field="*{text}"/>
+        <button type="submit">Добавить фразу</button>
+    </div>
+    <div th:errors="*{text}" class="error" style="color: red"/>
+</form>
+<br>
+<table th:border="1" style="border: blue; border-width: 1; ">
+    <thead th:style="${phrases.empty}? 'visibility: hidden;'">
+    <tr><th colspan="2">Сохранено в БД:</th></tr>
+    <tr>
+        <th>ID</th>
+        <th>Фраза</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ph, iterStat : ${phrases}"
+        th:style="${iterStat.odd}? 'font-weight: bold; '">
+        <td th:text="${ph.id}"></td>
+        <td th:text="${ph.text}"></td>
+    </tr>
+    </tbody>
+</table>
+</center>
+</body>
+</html>
